@@ -33,7 +33,8 @@ class Test(models.Model):
 class Question(models.Model):
     question_num = models.CharField(max_length=8)
     points = models.IntegerField(default=0)
-    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name="question", related_query_name="question")
+    test = models.ForeignKey(
+        Test, on_delete=models.CASCADE, db_index=True, related_name="question", related_query_name="question")
 
     def __str__(self):
         return self.question_num
@@ -43,7 +44,7 @@ class Student(models.Model):
     student_id = models.CharField(max_length=8)
     name = models.CharField(max_length=16)
     grade = models.IntegerField(default=1)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, db_index=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.student_id
