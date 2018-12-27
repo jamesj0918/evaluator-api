@@ -31,29 +31,27 @@ class Test(models.Model):
 
 
 class Question(models.Model):
-    question_num = models.CharField(max_length=8)
+    question_id = models.CharField(max_length=8, db_index=True)
     points = models.IntegerField(default=0)
-    test = models.ForeignKey(
-        Test, on_delete=models.CASCADE, db_index=True, related_name="question", related_query_name="question")
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name="question")
 
     def __str__(self):
-        return self.question_num
+        return self.question_id
 
 
 class Student(models.Model):
-    student_id = models.CharField(max_length=8)
-    name = models.CharField(max_length=16)
+    student_id = models.CharField(max_length=8, db_index=True)
+    name = models.CharField(max_length=16, db_index=True)
     grade = models.IntegerField(default=1)
-    department = models.ForeignKey(Department, db_index=True, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.student_id
 
 
 class Lecture(models.Model):
-    code = models.CharField(max_length=32, unique=True)
-    student = models.ForeignKey(
-        Student, on_delete=models.CASCADE, related_name="lecture", related_query_name="lecture")
+    code = models.CharField(max_length=32, db_index=True, unique=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="lecture")
 
     def __str__(self):
         return self.code
