@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'i7n61)04!@evair^tw-xg%0o!hys36^kcwxff_h-gor8%1^p^l'
+SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 DEBUG = True
 
@@ -36,7 +36,7 @@ ROOT_URLCONF = 'evaluator.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, '../../templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -49,6 +49,13 @@ TEMPLATES = [
         },
     },
 ]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 WSGI_APPLICATION = 'evaluator.wsgi.application'
 
