@@ -84,11 +84,10 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+development.py
 
 .env
 db.sqlite3
 
 # PyCharm
 .idea/
-
-settings/development.py
